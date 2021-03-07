@@ -1,0 +1,15 @@
+.game-board {
+	display: grid;
+	grid-template-columns: repeat(4, 150px);
+	grid-template-rows: repeat(3, 150px);
+	row-gap: 50px;
+	column-gap: 50px;
+}
+
+.card {
+	background-color: purple;
+	border: black solid 3px;
+}
+
+/* [data-isFlip="true"] {
+} */

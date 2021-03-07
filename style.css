@@ -37,8 +37,48 @@ h1 {
 	font-size: 1.5rem;
 	text-align: center;
 }
+.wrong {
+	text-align: left;
+}
 
 #restart {
 	padding: 7px 10px;
 	margin-top: 25px;
+}
+#win {
+	visibility: hidden;
+}
+
+@media only screen and (max-width: 900px) {
+	.game-board {
+		grid-template-columns: repeat(4, 70px);
+		grid-template-rows: repeat(3, 70px);
+		row-gap: 20px;
+		column-gap: 20px;
+		height: 80vh;
+	}
+	.menu {
+		font-size: 1rem;
+	}
+	#restart {
+		padding: 4px 4px;
+	}
+}
+@media only screen and (max-height: 800px) {
+	.game-board {
+		grid-template-columns: repeat(4, 70px);
+		grid-template-rows: repeat(3, 70px);
+		row-gap: 20px;
+		column-gap: 20px;
+		height: 80vh;
+	}
+}
+@media only screen and (max-height: 450px) {
+	.game-board {
+		grid-template-columns: repeat(6, 70px);
+		grid-template-rows: repeat(2, 70px);
+	}
+	h1 {
+		display: none;
+	}
 }

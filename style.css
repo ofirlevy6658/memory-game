@@ -2,6 +2,8 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
 }
 body {
 	background-color: #f4f4f4;
@@ -10,10 +12,19 @@ h1 {
 	text-align: center;
 	height: 2vh;
 }
+.level:hover {
+	transition: all 1s;
+	background-color: purple;
+	color: white;
+	cursor: pointer;
+}
+/* .remove {
+	display: none;
+} */
 .game-board {
 	display: grid;
-	grid-template-columns: repeat(4, 150px);
-	grid-template-rows: repeat(3, 150px);
+	grid-template-columns: repeat(4, 50px);
+	grid-template-rows: repeat(6, 50px);
 	row-gap: 50px;
 	column-gap: 50px;
 	justify-content: center;

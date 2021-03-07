@@ -1,11 +1,25 @@
 const gameBoard = document.querySelector(".game-board");
-const gameSize = 12; // later will be dynamic
+let gameSize = 12; // later will be dynamic
 const cardsArr = [];
 const state = {
+	inEvent: false,
 	tries: 0,
 	flip: 0,
 	corret: 0,
 };
+
+document
+	.querySelectorAll(".level")
+	.forEach((btn) => btn.addEventListener("click", startGame));
+
+function startGame(e) {
+	const gameLevel = e.target.textContent;
+	if (gameLevel === "Easy") gameSize = 12;
+	else if (gameLevel === "Medium") gameSize = 16;
+	else gameSize = 24;
+	gameBoard.innerHTML = "";
+	board();
+}
 function board() {
 	const cardElement = document.createElement("div");
 	cardElement.classList.add("card");
@@ -29,22 +43,30 @@ function shuffle(cardsArr) {
 	}
 }
 function getColors(cardsArr) {
-	const colors = ["green", "red", "blue", "orange", "Aqua", "Aquamarine"];
 	for (let i = 0; i < gameSize / 2; i++) {
-		cardsArr[i].setAttribute("data-value", colors[i]);
-		cardsArr[gameSize / 2 + i].setAttribute("data-value", colors[i]);
+		let color = getRandomColor();
+		cardsArr[i].setAttribute("data-value", color);
+		cardsArr[gameSize / 2 + i].setAttribute("data-value", color);
 	}
 }
+function getRandomColor() {
+	var letters = "0123456789ABCDEF";
+	var color = "#";
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
 
-board();
 gameBoard.addEventListener("click", (e) => {
-	if (e.target.classList[0] !== "card") return;
-	gameBoard.disabled = true;
+	if (e.target.classList[0] !== "card" || state.inEvent == true) return;
+	console.log(state.flip);
 	state.flip++;
 	const card = e.target;
 	card.setAttribute("data-isFlip", "true");
 	card.style.backgroundColor = card.getAttribute("data-value");
-	if (state.flip == 2) {
+	if (state.flip == 1) {
+		state.inEvent = true;
 		checkMatch();
 		state.flip = 0;
 	}
@@ -55,12 +77,17 @@ function checkMatch() {
 	const flip = cardsArr.filter(
 		(el) => el.getAttribute("data-isFlip") === "true"
 	);
+	if (flip[1] === undefined) {
+		state.inEvent = false;
+		return;
+	}
 	if (
 		flip[0].getAttribute("data-value") === flip[1].getAttribute("data-value")
 	) {
 		state.corret++;
 		flip[0].setAttribute("data-isFlip", "true-found");
 		flip[1].setAttribute("data-isFlip", "true-found");
+		state.inEvent = false;
 	} else {
 		state.tries++;
 		setTimeout(function () {
@@ -68,8 +95,8 @@ function checkMatch() {
 			flip[0].style.backgroundColor = "purple";
 			flip[1].setAttribute("data-isFlip", "false");
 			flip[1].style.backgroundColor = "purple";
+			state.inEvent = false;
 		}, 1000);
-		console.log(state.tries);
 	}
 }
 
@@ -84,6 +111,7 @@ function menu() {
 document.querySelector("#restart").addEventListener("click", restart);
 function restart() {
 	//reset
+	document.querySelector("#win").style.visibility = "hidden";
 	state.tries = 0;
 	gameBoard.innerHTML = "";
 	//call to start

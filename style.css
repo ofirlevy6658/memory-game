@@ -1,9 +1,24 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #f4f4f4;
+}
+h1 {
+	text-align: center;
+	height: 2vh;
+}
 .game-board {
 	display: grid;
 	grid-template-columns: repeat(4, 150px);
 	grid-template-rows: repeat(3, 150px);
 	row-gap: 50px;
 	column-gap: 50px;
+	justify-content: center;
+	align-content: center;
+	height: 80vh;
 }
 
 .card {
@@ -15,4 +30,15 @@
 
 [data-isflip="false"] {
 	background-color: purple;
+}
+.menu {
+	height: 18vh;
+	background-color: #3b5998;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+#restart {
+	padding: 7px 10px;
+	margin-top: 25px;
 }

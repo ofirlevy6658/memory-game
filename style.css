@@ -7,9 +7,12 @@
 }
 
 .card {
-	background-color: purple;
 	border: black solid 3px;
 }
 
 /* [data-isFlip="true"] {
 } */
+
+[data-isflip="false"] {
+	background-color: purple;
+}
